@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option go_package = "alexbilevskiy.tgrpc;tgrpc";
+
+service Messages {
+  rpc GetScheduledHistory (GetScheduledHistoryRequest) returns (GetScheduledHistoryResponse);
+  rpc GetScheduledMessages (GetScheduledMessagesRequest) returns (GetScheduledMessagesResponse);
+}
+
+message GetScheduledHistoryRequest {
+  string Peer = 1;
+  double Hash = 2;
+}
+
+message GetScheduledHistoryResponse {
+  repeated Message Messages = 1;
+}
+
+message Message {
+  int64 id = 1;
+}
+
+message GetScheduledMessagesRequest {
+  string Peer = 1;
+  repeated int64 Messsages = 2;
+}
+
+message GetScheduledMessagesResponse {
+  repeated Message Messages = 1;
+}
