@@ -8,8 +8,9 @@ service Messages {
 }
 
 message GetScheduledHistoryRequest {
-  string Peer = 1;
-  double Hash = 2;
+  string Account = 1;
+  string Peer = 2;
+  double Hash = 3;
 }
 
 message GetScheduledHistoryResponse {
@@ -21,8 +22,9 @@ message Message {
 }
 
 message GetScheduledMessagesRequest {
-  string Peer = 1;
-  repeated int64 Messsages = 2;
+  string Account = 1;
+  string Peer = 2;
+  repeated int64 Messsages = 3;
 }
 
 message GetScheduledMessagesResponse {
