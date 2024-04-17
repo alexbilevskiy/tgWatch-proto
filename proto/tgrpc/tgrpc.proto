@@ -9,7 +9,7 @@ service Messages {
 
 message GetScheduledHistoryRequest {
   int64 Account = 1;
-  string Peer = 2;
+  int64 Peer = 2;
   double Hash = 3;
 }
 
@@ -23,7 +23,7 @@ message Message {
 
 message GetScheduledMessagesRequest {
   int64 Account = 1;
-  string Peer = 2;
+  int64 Peer = 2;
   repeated int64 Messsages = 3;
 }
 
