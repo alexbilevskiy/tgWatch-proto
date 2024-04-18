@@ -18,7 +18,11 @@ message GetScheduledHistoryResponse {
 }
 
 message Message {
-  int64 id = 1;
+  int64 Id = 1;
+  int64 ChatId = 2;
+  int32 Date = 3;
+  string TextPreview = 4;
+  SchedulingState SchedulingState = 5;
 }
 
 message GetScheduledMessagesRequest {
@@ -29,4 +33,8 @@ message GetScheduledMessagesRequest {
 
 message GetScheduledMessagesResponse {
   repeated Message Messages = 1;
+}
+message SchedulingState {
+  string SchedulingStateType = 1;
+  int32 SendDate = 2;
 }
