@@ -3,18 +3,8 @@ syntax = "proto3";
 option go_package = "alexbilevskiy.tgrpc;tgrpc";
 
 service Messages {
-  rpc GetScheduledHistory (GetScheduledHistoryRequest) returns (GetScheduledHistoryResponse);
   rpc GetScheduledMessages (GetScheduledMessagesRequest) returns (GetScheduledMessagesResponse);
-}
-
-message GetScheduledHistoryRequest {
-  int64 Account = 1;
-  int64 Peer = 2;
-  double Hash = 3;
-}
-
-message GetScheduledHistoryResponse {
-  repeated Message Messages = 1;
+  rpc ScheduleForwardedMessage (ScheduleForwardedMessageRequest) returns (ScheduleForwardedMessageResponse);
 }
 
 message Message {
@@ -38,3 +28,14 @@ message SchedulingState {
   string SchedulingStateType = 1;
   int32 SendDate = 2;
 }
+
+message ScheduleForwardedMessageRequest {
+  int64 targetChatId = 1;
+  int64 fromChatId = 2;
+  repeated int64 messageIds = 3;
+  int32 sendAtDate = 4;
+}
+message ScheduleForwardedMessageResponse {
+  repeated Message Messages = 1;
+}
+
