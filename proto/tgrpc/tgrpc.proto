@@ -30,10 +30,11 @@ message SchedulingState {
 }
 
 message ScheduleForwardedMessageRequest {
-  int64 targetChatId = 1;
-  int64 fromChatId = 2;
-  repeated int64 messageIds = 3;
-  int32 sendAtDate = 4;
+  int64 Account = 1;
+  int64 targetChatId = 2;
+  int64 fromChatId = 3;
+  repeated int64 messageIds = 4;
+  int32 sendAtDate = 5;
 }
 message ScheduleForwardedMessageResponse {
   repeated Message Messages = 1;
