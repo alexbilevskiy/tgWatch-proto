@@ -35,6 +35,7 @@ message ScheduleForwardedMessageRequest {
   int64 fromChatId = 3;
   repeated int64 messageIds = 4;
   int32 sendAtDate = 5;
+  bool sendCopy = 6;
 }
 message ScheduleForwardedMessageResponse {
   repeated Message Messages = 1;
