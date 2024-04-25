@@ -43,12 +43,13 @@ message ScheduleForwardedMessageResponse {
 }
 
 message EditMessageSchedulingStateRequest {
-  int64 ChatId = 1;
-  int64 MessageId = 2;
-  string SchedulingStateType = 3;
-  int32 SendDate = 4;
+  int64 Account = 1;
+  int64 ChatId = 2;
+  int64 MessageId = 3;
+  string SchedulingStateType = 4;
+  int32 SendDate = 5;
 }
 
 message EditMessageSchedulingStateResponse {
-  
+
 }
