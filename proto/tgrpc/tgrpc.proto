@@ -5,6 +5,7 @@ option go_package = "alexbilevskiy.tgrpc;tgrpc";
 service Messages {
   rpc GetScheduledMessages (GetScheduledMessagesRequest) returns (GetScheduledMessagesResponse);
   rpc ScheduleForwardedMessage (ScheduleForwardedMessageRequest) returns (ScheduleForwardedMessageResponse);
+  rpc EditMessageSchedulingState (EditMessageSchedulingStateRequest) returns (EditMessageSchedulingStateResponse);
 }
 
 message Message {
@@ -41,3 +42,13 @@ message ScheduleForwardedMessageResponse {
   repeated Message Messages = 1;
 }
 
+message EditMessageSchedulingStateRequest {
+  int64 ChatId = 1;
+  int64 MessageId = 2;
+  string SchedulingStateType = 3;
+  int32 SendDate = 4;
+}
+
+message EditMessageSchedulingStateResponse {
+  
+}

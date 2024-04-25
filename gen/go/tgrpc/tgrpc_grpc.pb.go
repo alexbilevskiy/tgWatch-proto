@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Messages_GetScheduledMessages_FullMethodName     = "/Messages/GetScheduledMessages"
-	Messages_ScheduleForwardedMessage_FullMethodName = "/Messages/ScheduleForwardedMessage"
+	Messages_GetScheduledMessages_FullMethodName       = "/Messages/GetScheduledMessages"
+	Messages_ScheduleForwardedMessage_FullMethodName   = "/Messages/ScheduleForwardedMessage"
+	Messages_EditMessageSchedulingState_FullMethodName = "/Messages/EditMessageSchedulingState"
 )
 
 // MessagesClient is the client API for Messages service.
@@ -29,6 +30,7 @@ const (
 type MessagesClient interface {
 	GetScheduledMessages(ctx context.Context, in *GetScheduledMessagesRequest, opts ...grpc.CallOption) (*GetScheduledMessagesResponse, error)
 	ScheduleForwardedMessage(ctx context.Context, in *ScheduleForwardedMessageRequest, opts ...grpc.CallOption) (*ScheduleForwardedMessageResponse, error)
+	EditMessageSchedulingState(ctx context.Context, in *EditMessageSchedulingStateRequest, opts ...grpc.CallOption) (*EditMessageSchedulingStateResponse, error)
 }
 
 type messagesClient struct {
@@ -57,12 +59,22 @@ func (c *messagesClient) ScheduleForwardedMessage(ctx context.Context, in *Sched
 	return out, nil
 }
 
+func (c *messagesClient) EditMessageSchedulingState(ctx context.Context, in *EditMessageSchedulingStateRequest, opts ...grpc.CallOption) (*EditMessageSchedulingStateResponse, error) {
+	out := new(EditMessageSchedulingStateResponse)
+	err := c.cc.Invoke(ctx, Messages_EditMessageSchedulingState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MessagesServer is the server API for Messages service.
 // All implementations must embed UnimplementedMessagesServer
 // for forward compatibility
 type MessagesServer interface {
 	GetScheduledMessages(context.Context, *GetScheduledMessagesRequest) (*GetScheduledMessagesResponse, error)
 	ScheduleForwardedMessage(context.Context, *ScheduleForwardedMessageRequest) (*ScheduleForwardedMessageResponse, error)
+	EditMessageSchedulingState(context.Context, *EditMessageSchedulingStateRequest) (*EditMessageSchedulingStateResponse, error)
 	mustEmbedUnimplementedMessagesServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedMessagesServer) GetScheduledMessages(context.Context, *GetSch
 }
 func (UnimplementedMessagesServer) ScheduleForwardedMessage(context.Context, *ScheduleForwardedMessageRequest) (*ScheduleForwardedMessageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ScheduleForwardedMessage not implemented")
+}
+func (UnimplementedMessagesServer) EditMessageSchedulingState(context.Context, *EditMessageSchedulingStateRequest) (*EditMessageSchedulingStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditMessageSchedulingState not implemented")
 }
 func (UnimplementedMessagesServer) mustEmbedUnimplementedMessagesServer() {}
 
@@ -125,6 +140,24 @@ func _Messages_ScheduleForwardedMessage_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Messages_EditMessageSchedulingState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditMessageSchedulingStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MessagesServer).EditMessageSchedulingState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Messages_EditMessageSchedulingState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MessagesServer).EditMessageSchedulingState(ctx, req.(*EditMessageSchedulingStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Messages_ServiceDesc is the grpc.ServiceDesc for Messages service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var Messages_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ScheduleForwardedMessage",
 			Handler:    _Messages_ScheduleForwardedMessage_Handler,
+		},
+		{
+			MethodName: "EditMessageSchedulingState",
+			Handler:    _Messages_EditMessageSchedulingState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
