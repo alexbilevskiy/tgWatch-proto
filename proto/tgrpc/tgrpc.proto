@@ -14,6 +14,7 @@ message Message {
   int32 Date = 3;
   string TextPreview = 4;
   SchedulingState SchedulingState = 5;
+  int64 MediaAlbumId = 6;
 }
 
 message GetScheduledMessagesRequest {
